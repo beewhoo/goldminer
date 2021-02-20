@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_20_010857) do
+ActiveRecord::Schema.define(version: 2021_02_20_011856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2021_02_20_010857) do
     t.bigint "contact_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["contact_id", "tag_id"], name: "index_taggings_on_contact_id_and_tag_id", unique: true
     t.index ["contact_id"], name: "index_taggings_on_contact_id"
     t.index ["tag_id"], name: "index_taggings_on_tag_id"
   end
