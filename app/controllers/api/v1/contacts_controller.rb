@@ -28,6 +28,21 @@ class Api::V1::ContactsController < Api::V1::BaseController
  end
 
  def update
+   if @contact = Contact.find_by(id: contact_id)
+
+     begin
+       @contact.update!(contact_params)
+       render(
+         json: @contact,
+         serializer: Api::ContactSerializer,
+         status: 200,
+       )
+     rescue => e
+       render_error :unprocessable_entity, 'ValidationError', @contact.errors.messages
+     end
+   else
+     render_not_found(@contact)
+   end
  end
 
  def destroy
@@ -42,6 +57,10 @@ class Api::V1::ContactsController < Api::V1::BaseController
      :email
    )
  end
+
+ def contact_id
+    params.require(:id)
+  end
 
 
 

@@ -21,9 +21,15 @@ class Api::V1::BaseController < ApplicationController
     _body = { type: type }
     _key = error.is_a?(String) ? :message : :error_messages
     _body[_key] = error
-
     render( json: _body.to_json, status: status )
   end
+
+  def render_not_found(e)
+   render_error :not_found, 'NotFound', "Record not found"
+ end
+
+
+
 
 
 
