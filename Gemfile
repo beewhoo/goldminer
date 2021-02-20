@@ -26,6 +26,8 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # gem 'rack-cors'
 # Pagination for api
 gem 'will_paginate', '~> 3.1.0'
+# Serializer
+gem 'active_model_serializers'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
