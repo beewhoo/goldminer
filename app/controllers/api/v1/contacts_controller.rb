@@ -46,6 +46,14 @@ class Api::V1::ContactsController < Api::V1::BaseController
  end
 
  def destroy
+   if @contact = Contact.find_by(id: contact_id)
+
+     @contact.destroy
+     render json: {}, status: 200
+   else
+     render_not_found(@contact)
+   end
+
  end
 
  private
