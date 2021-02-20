@@ -17,5 +17,14 @@ class Api::V1::BaseController < ApplicationController
     _params.to_h
   end
 
+  def render_error(status, type, error)
+    _body = { type: type }
+    _key = error.is_a?(String) ? :message : :error_messages
+    _body[_key] = error
+
+    render( json: _body.to_json, status: status )
+  end
+
+
 
 end

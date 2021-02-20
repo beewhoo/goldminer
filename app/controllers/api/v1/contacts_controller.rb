@@ -13,14 +13,36 @@ class Api::V1::ContactsController < Api::V1::BaseController
     )
  end
 
-  def create
-  end
+ def create
+   @contact = Contact.new(contact_params)
 
-  def update
-  end
+   if @contact.save
+     render(
+       json: @contact,
+       serializer: Api::ContactSerializer,
+       status: 201,
+     )
+   else
+     render_error :unprocessable_entity, 'ValidationError', @contact.errors.messages
+   end
+ end
 
-  def destroy
-  end
+ def update
+ end
+
+ def destroy
+ end
+
+ private
+
+ def contact_params
+   params.require(:contact).permit(
+     :first_name,
+     :last_name,
+     :email
+   )
+ end
+
 
 
 end
