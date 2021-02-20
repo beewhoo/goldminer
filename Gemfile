@@ -30,6 +30,8 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   #factory
   gem 'factory_bot_rails'
+  # generates fake data
+  gem 'faker'
 end
 
 group :development do
