@@ -1,24 +1,13 @@
-# README
+# GOLDMINER
+- GOLDMINER CRM BACKEND API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Local Project Setup
+ * Pre-requisites:
+    - PostgreSQL. Versions 9.3 and up are supported.
+    - ruby version - 3.0.0
+    - rails version - 6.1.3
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+ * Run bundle install
+ * Run migration `rails db:setup`
+ * Seed database `rails db:seed`
+ * Run rails server using `rails s`
