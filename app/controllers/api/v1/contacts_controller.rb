@@ -50,7 +50,7 @@ class Api::V1::ContactsController < Api::V1::BaseController
       @contact.destroy
       render json: {}, status: :ok
     else
-      render_not_found(@contact)
+      render_error :not_found, 'NotFound', 'Record not found'
     end
   end
 

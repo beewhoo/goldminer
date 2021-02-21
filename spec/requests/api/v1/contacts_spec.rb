@@ -61,7 +61,7 @@ RSpec.describe 'api/v1/contacts', type: :request do
     put 'Update contact' do
       tags 'Contact'
       consumes 'application/json'
-      parameter name: 'id', in: :path, type: :string, description: 'contact id'
+      parameter name: 'id', in: :path, type: :integer, description: 'contact id'
 
       parameter name: :params, in: :body, schema: {
         type: :object,
@@ -86,6 +86,17 @@ RSpec.describe 'api/v1/contacts', type: :request do
           }
         }
       }
+      response 200, :success do
+        let(:contact) { create(:contact) }
+        run_test!
+      end
+    end
+
+    delete 'delete contact' do
+      tags 'Contact'
+      parameter name: 'id', in: :path, type: :integer, description: 'contact id'
+      produces 'application/json'
+
       response 200, :success do
         let(:contact) { create(:contact) }
         run_test!

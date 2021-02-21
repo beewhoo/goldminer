@@ -74,7 +74,7 @@ paths:
         description: contact id
         required: true
         schema:
-          type: string
+          type: integer
       responses:
         '200':
           description: success
@@ -105,5 +105,19 @@ paths:
                           name:
                             type: string
                             example: win
+    delete:
+      summary: delete contact
+      tags:
+      - Contact
+      parameters:
+      - name: id
+        in: path
+        description: contact id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
 servers:
 - url: http://localhost:3000/api/v1
