@@ -1,7 +1,7 @@
 #spec/integration/user_spec.rb
 require 'swagger_helper'
 
-describe 'Contact', type: :request do
+describe 'Contact', type: :request, swagger_doc: "v1/swagger.yaml" do
 
   path '/contacts' do
     let(:contacts) { create_list(:contact, 10) }

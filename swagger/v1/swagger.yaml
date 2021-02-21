@@ -28,5 +28,67 @@ paths:
       responses:
         '200':
           description: success
+    post:
+      summary: create contact
+      tags:
+      - Contact
+      parameters: []
+      responses:
+        '200':
+          description: success
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contact:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      example: test@example.com
+                    first_name:
+                      type: string
+                      example: john
+                    last_name:
+                      type: string
+                      example: doe
+                    tag_attributes:
+                      type: array
+                      description: array of tags for contact (new or existing)
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            example: win
+  "/contacts/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    patch:
+      summary: update contact
+      tags:
+      - Contact
+      responses:
+        '200':
+          description: successful
+    put:
+      summary: update contact
+      tags:
+      - Contact
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete contact
+      responses:
+        '200':
+          description: successful
 servers:
 - url: http://localhost:3000/api/v1
