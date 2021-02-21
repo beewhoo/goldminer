@@ -29,7 +29,6 @@ class Api::V1::ContactsController < Api::V1::BaseController
 
  def update
    if @contact = Contact.find_by(id: contact_id)
-
      begin
        @contact.update!(contact_params)
        render(
@@ -62,7 +61,8 @@ class Api::V1::ContactsController < Api::V1::BaseController
    params.require(:contact).permit(
      :first_name,
      :last_name,
-     :email
+     :email,
+     tag_ids: []
    )
  end
 
