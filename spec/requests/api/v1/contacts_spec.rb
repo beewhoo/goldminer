@@ -12,7 +12,8 @@ RSpec.describe 'api/v1/contacts', type: :request do
       parameter name: :page, in: :query, type: :integer, required: false
       parameter name: :per_page, in: :query, type: :integer, required: false
       parameter name: "filter[search_by_tag]", in: :query, type: :string, required: false
-      response '200', :success do
+
+      response 200, :success do
         schema type: :object,
           properties:{
             contacts: {
@@ -70,10 +71,23 @@ RSpec.describe 'api/v1/contacts', type: :request do
           }
         }
       }
-      response '201', :success do
+      response 201, :success do
         let(:params) {{
             contact: {
               email: Faker::Internet.unique.email,
+              first_name: Faker::Name.first_name,
+              last_name: Faker::Name.last_name,
+              tags_attributes: [{ name: 'not_interested'},{ name: 'wonBusiness'}]
+            }
+          }}
+        run_test!
+      end
+
+      response 422, :unprocessable_entity do
+        let(:exsiting_contact) { create(:contact)}
+        let(:params) {{
+            contact: {
+              email: exsiting_contact.email,
               first_name: Faker::Name.first_name,
               last_name: Faker::Name.last_name,
               tags_attributes: [{ name: 'not_interested'},{ name: 'wonBusiness'}]
@@ -126,6 +140,33 @@ RSpec.describe 'api/v1/contacts', type: :request do
           }}
         run_test!
       end
+
+      response 422, :success do
+        let(:exsiting_contact) { create(:contact)}
+        let(:id) {create(:contact).id}
+        let(:params) {{
+            contact: {
+              email: exsiting_contact.email,
+              first_name: Faker::Name.first_name,
+              last_name: Faker::Name.last_name,
+              tags_attributes: [{ name: 'not_interested'},{ name: 'wonBusiness'}]
+            }
+          }}
+        run_test!
+      end
+
+      response 404, :not_found do
+        let(:id) {'invalid_id'}
+        let(:params) {{
+            contact: {
+              email: Faker::Internet.unique.email,
+              first_name: Faker::Name.first_name,
+              last_name: Faker::Name.last_name,
+              tags_attributes: [{ name: 'not_interested'},{ name: 'wonBusiness'}]
+            }
+          }}
+        run_test!
+      end
     end
 
     delete 'Delete contact' do
@@ -135,6 +176,11 @@ RSpec.describe 'api/v1/contacts', type: :request do
 
       response 200, :success do
         let(:id) {create(:contact).id}
+        run_test!
+      end
+
+      response 404, :not_found do
+        let(:id) {'invalid_id'}
         run_test!
       end
     end
