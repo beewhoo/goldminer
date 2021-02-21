@@ -38,6 +38,8 @@ group :development, :test do
   gem 'faker'
   # rspec
   gem 'rspec-rails', '~> 4.0.2'
+  # rswag api documentation 
+  gem 'rswag'
 end
 
 group :test do
