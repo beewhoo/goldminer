@@ -28,7 +28,7 @@ RSpec.describe 'api/v1/contacts', type: :request do
               email: { type: :string, example: 'test@example.com'},
               first_name: { type: :string, example: 'john'},
               last_name: { type: :string, example: 'doe'},
-              tag_attributes: {
+              tags_attributes: {
                 type: :array,
                 description: 'array of tags for contact (new or existing)',
                 items: {
@@ -48,7 +48,7 @@ RSpec.describe 'api/v1/contacts', type: :request do
               email: Faker::Internet.unique.email,
               first_name: Faker::Internet.first_name,
               last_name: Faker::Internet.last_name,
-              tag_attributes: [{ name: 'not_interested'},{ name: 'wonBusiness'}]
+              tags_attributes: [{ name: 'not_interested'},{ name: 'wonBusiness'}]
             }
           }}
         run_test!
@@ -56,23 +56,42 @@ RSpec.describe 'api/v1/contacts', type: :request do
     end
   end
 
-
   path '/contacts/{id}' do
-    parameter name: 'id', in: :path, type: :string, description: 'id'
 
-    patch('update contact') do
+    put 'Update contact' do
       tags 'Contact'
-      response(200, 'successful') do
-        let(:id) { '123' }
+      consumes 'application/json'
+      parameter name: 'id', in: :path, type: :string, description: 'contact id'
 
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
+      parameter name: :params, in: :body, schema: {
+        type: :object,
+        properties: {
+          contact: {
+            type: :object,
+            properties: {
+              email: { type: :string, example: 'test@example.com'},
+              first_name: { type: :string, example: 'john'},
+              last_name: { type: :string, example: 'doe'},
+              tags_attributes: {
+                type: :array,
+                description: 'array of tags for contact (new or existing)',
+                items: {
+                  type: :object,
+                  properties: {
+                    name: { type: :string, example: 'win'}
+                  }
+                }
+              }
             }
           }
-        end
+        }
+      }
+      response 200, :success do
+        let(:contact) { create(:contact) }
         run_test!
       end
     end
+
+
+  end
 end

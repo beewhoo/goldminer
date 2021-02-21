@@ -29,7 +29,7 @@ paths:
         '200':
           description: success
     post:
-      summary: create contact
+      summary: Create contact
       tags:
       - Contact
       parameters: []
@@ -54,7 +54,7 @@ paths:
                     last_name:
                       type: string
                       example: doe
-                    tag_attributes:
+                    tags_attributes:
                       type: array
                       description: array of tags for contact (new or existing)
                       items:
@@ -64,31 +64,46 @@ paths:
                             type: string
                             example: win
   "/contacts/{id}":
-    parameters:
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: string
-    patch:
-      summary: update contact
-      tags:
-      - Contact
-      responses:
-        '200':
-          description: successful
     put:
-      summary: update contact
+      summary: Update contact
       tags:
       - Contact
+      parameters:
+      - name: id
+        in: path
+        description: contact id
+        required: true
+        schema:
+          type: string
       responses:
         '200':
-          description: successful
-    delete:
-      summary: delete contact
-      responses:
-        '200':
-          description: successful
+          description: success
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contact:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      example: test@example.com
+                    first_name:
+                      type: string
+                      example: john
+                    last_name:
+                      type: string
+                      example: doe
+                    tags_attributes:
+                      type: array
+                      description: array of tags for contact (new or existing)
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            example: win
 servers:
 - url: http://localhost:3000/api/v1
