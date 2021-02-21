@@ -2,8 +2,9 @@ class Api::V1::ContactsController < Api::V1::BaseController
 
   def index
     @contacts = Contact
-    .includes(:tags)
-    .paginate(pagination_params)
+        .filter(filter_params)
+        .includes(:tags)
+        .paginate(pagination_params)
 
     render(
       json: @contacts,
@@ -66,10 +67,15 @@ class Api::V1::ContactsController < Api::V1::BaseController
    )
  end
 
-
  def contact_id
-    params.require(:id)
-  end
+   params.require(:id)
+ end
+
+ def filter_params
+   _params = params.dig(:filter)&.permit(
+     :search_by_tag
+   ) || {}
+ end
 
 
 
