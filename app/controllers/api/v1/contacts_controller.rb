@@ -62,9 +62,10 @@ class Api::V1::ContactsController < Api::V1::BaseController
      :first_name,
      :last_name,
      :email,
-     tag_ids: []
+     tags_attributes: [ :name ]
    )
  end
+
 
  def contact_id
     params.require(:id)
