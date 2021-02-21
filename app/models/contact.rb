@@ -1,4 +1,5 @@
 class Contact < ApplicationRecord
+  include Filterable
   #relationships
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
@@ -9,6 +10,11 @@ class Contact < ApplicationRecord
   accepts_nested_attributes_for :tags, allow_destroy: true
 
 
+  scope :search_by_tag, -> (tag_name) {
+    joins(:tags)
+    .where(tags: { name: tag_name.underscore})
+  }
+
   private
 
   def find_or_create_tag
@@ -18,7 +24,7 @@ class Contact < ApplicationRecord
         _tags << Tag.find_or_create_by(name: tag.name.underscore)
       end
     end
-    self.tags = _tags 
+    self.tags = _tags
   end
 
 end
