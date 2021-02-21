@@ -1,6 +1,7 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/contacts', type: :request do
+  let(:contacts) { create_list(:contact, 10) }
 
   path '/contacts' do
 
@@ -73,8 +74,8 @@ RSpec.describe 'api/v1/contacts', type: :request do
         let(:params) {{
             contact: {
               email: Faker::Internet.unique.email,
-              first_name: Faker::Internet.first_name,
-              last_name: Faker::Internet.last_name,
+              first_name: Faker::Name.first_name,
+              last_name: Faker::Name.last_name,
               tags_attributes: [{ name: 'not_interested'},{ name: 'wonBusiness'}]
             }
           }}
@@ -114,7 +115,7 @@ RSpec.describe 'api/v1/contacts', type: :request do
         }
       }
       response 200, :success do
-        let(:contact) { create(:contact) }
+        let(:id) {create(:contact).id}
         run_test!
       end
     end
@@ -125,11 +126,9 @@ RSpec.describe 'api/v1/contacts', type: :request do
       produces 'application/json'
 
       response 200, :success do
-        let(:contact) { create(:contact) }
+        let(:id) {create(:contact).id}
         run_test!
       end
     end
-
-
   end
 end
