@@ -12,6 +12,33 @@ RSpec.describe 'api/v1/contacts', type: :request do
       parameter name: :per_page, in: :query, type: :integer, required: false
       parameter name: "filter[search_by_tag]", in: :query, type: :string, required: false
       response '200', :success do
+        schema type: :object,
+          properties:{
+            contacts: {
+              type: :array,
+              description: 'An arrray of contacts',
+              items: {
+                type: :object,
+                properties: {
+                  id: { type: :integer, example: '1'},
+                  full_name: { type: :string, example: 'John Doe'},
+                  email: { type: :string, example: 'exmaple@example.com'},
+                  tags:{
+                    type: :array,
+                    description: 'Contact tags',
+                    items: {
+                      type: :object,
+                      properties: {
+                        id: { type: :integer, example: '1'},
+                        name: { type: :string, example: 'lead'},
+                        camel_case_name: { type: :string, example: 'HighValued'}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         run_test!
       end
     end
@@ -92,7 +119,7 @@ RSpec.describe 'api/v1/contacts', type: :request do
       end
     end
 
-    delete 'delete contact' do
+    delete 'Delete contact' do
       tags 'Contact'
       parameter name: 'id', in: :path, type: :integer, description: 'contact id'
       produces 'application/json'

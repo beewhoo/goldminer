@@ -28,6 +28,41 @@ paths:
       responses:
         '200':
           description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  contacts:
+                    type: array
+                    description: An arrray of contacts
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: '1'
+                        full_name:
+                          type: string
+                          example: John Doe
+                        email:
+                          type: string
+                          example: exmaple@example.com
+                        tags:
+                          type: array
+                          description: Contact tags
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: '1'
+                              name:
+                                type: string
+                                example: lead
+                              camel_case_name:
+                                type: string
+                                example: HighValued
     post:
       summary: Create contact
       tags:
@@ -106,7 +141,7 @@ paths:
                             type: string
                             example: win
     delete:
-      summary: delete contact
+      summary: Delete contact
       tags:
       - Contact
       parameters:
