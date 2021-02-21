@@ -1,5 +1,5 @@
 class Tagging < ApplicationRecord
-  #relationships
+  # relationships
   belongs_to :tag
   belongs_to :contact
 end

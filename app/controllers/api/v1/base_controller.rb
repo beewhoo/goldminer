@@ -1,8 +1,7 @@
 class Api::V1::BaseController < ApplicationController
-
   around_action :rescue_from_fk_contraint, only: [:destroy]
 
-  #pagination
+  # pagination
   def meta_attributes(collection, extra_meta = {})
     {
       current_page: collection.current_page,
@@ -20,25 +19,21 @@ class Api::V1::BaseController < ApplicationController
     _params.to_h
   end
 
- #error handling
+  # error handling
   def render_error(status, type, error)
     _body = { type: type }
     _key = error.is_a?(String) ? :message : :error_messages
     _body[_key] = error
-    render( json: _body.to_json, status: status )
+    render(json: _body.to_json, status: status)
   end
 
-  def render_not_found(e)
-   render_error :not_found, 'NotFound', "Record not found"
+  def render_not_found(_e)
+    render_error :not_found, 'NotFound', 'Record not found'
   end
 
   def rescue_from_fk_contraint
-    begin
-      yield
-    rescue ActiveRecord::InvalidForeignKey
-      render_error :conflict, 'ForeignKeyConstraint', "Cannot delete record"
-    end
+    yield
+  rescue ActiveRecord::InvalidForeignKey
+    render_error :conflict, 'ForeignKeyConstraint', 'Cannot delete record'
   end
-
-
 end

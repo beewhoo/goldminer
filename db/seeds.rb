@@ -6,37 +6,36 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-TAGS = %w(Lead HighValue Finalized Stage2 LowValue Churned RealEstate)
+TAGS = %w[Lead HighValue Finalized Stage2 LowValue Churned RealEstate]
 
 if Rails.env.development?
 
-    Tagging.destroy_all
-    Tag.destroy_all
-    Contact.destroy_all
+  Tagging.destroy_all
+  Tag.destroy_all
+  Contact.destroy_all
 
   contacts = []
   tags = []
 
- puts '-- Create contacts --'
+  puts '-- Create contacts --'
 
-  10.times do |i|
+  10.times do |_i|
     contacts << FactoryBot.create(:contact)
   end
 
- puts '-- Create tags --'
+  puts '-- Create tags --'
 
-  TAGS.each do | tag |
-    tags << FactoryBot.create(:tag, name: tag )
+  TAGS.each do |tag|
+    tags << FactoryBot.create(:tag, name: tag)
   end
 
   puts '-- Create taggings --'
-  contacts.each do  |contact|
+  contacts.each do |contact|
     rand(1..3).times do
       Tagging.find_or_create_by(contact_id: contact.id, tag_id: tags.sample.id)
     end
   end
 
   puts '-- Seeding completed --'
-
 
 end
