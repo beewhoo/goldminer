@@ -10,9 +10,11 @@ class Contact < ApplicationRecord
   accepts_nested_attributes_for :tags, allow_destroy: true
 
 
-  scope :search_by_tag, -> (tag_name) {
+  scope :search_by_tag, -> (tag) {
+    _name = tag.is_a?(Array) ? tag.map(&:underscore) : tag.underscore
+
     joins(:tags)
-    .where(tags: { name: tag_name.underscore})
+    .where(tags: { name: _name})
   }
 
   private

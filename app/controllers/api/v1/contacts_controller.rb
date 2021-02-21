@@ -73,10 +73,9 @@ class Api::V1::ContactsController < Api::V1::BaseController
 
  def filter_params
    _params = params.dig(:filter)&.permit(
-     :search_by_tag
+     :search_by_tag,
+     search_by_tag: []
    ) || {}
  end
-
-
 
 end
