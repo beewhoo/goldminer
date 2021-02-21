@@ -27,10 +27,6 @@ class Api::V1::BaseController < ApplicationController
     render(json: _body.to_json, status: status)
   end
 
-  def render_not_found(_e)
-    render_error :not_found, 'NotFound', 'Record not found'
-  end
-
   def rescue_from_fk_contraint
     yield
   rescue ActiveRecord::InvalidForeignKey

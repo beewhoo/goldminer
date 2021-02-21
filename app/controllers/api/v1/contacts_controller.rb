@@ -40,7 +40,7 @@ class Api::V1::ContactsController < Api::V1::BaseController
         render_error :unprocessable_entity, 'ValidationError', @contact.errors.messages
       end
     else
-      render_not_found(@contact)
+      render_error :not_found, 'NotFound', 'Record not found'
     end
   end
 
