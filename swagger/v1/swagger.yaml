@@ -1,0 +1,32 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/contacts":
+    get:
+      summary: List all contacts
+      tags:
+      - Contact
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: filter[search_by_tag]
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+servers:
+- url: http://localhost:3000/api/v1
