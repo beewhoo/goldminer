@@ -3,6 +3,8 @@ openapi: 3.0.1
 info:
   title: API V1
   version: v1
+host: ''
+basePath: "/api/v1"
 paths:
   "/contacts":
     get:

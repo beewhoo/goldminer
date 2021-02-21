@@ -70,7 +70,7 @@ RSpec.describe 'api/v1/contacts', type: :request do
           }
         }
       }
-      response '200', :success do
+      response '201', :success do
         let(:params) {{
             contact: {
               email: Faker::Internet.unique.email,
@@ -116,6 +116,14 @@ RSpec.describe 'api/v1/contacts', type: :request do
       }
       response 200, :success do
         let(:id) {create(:contact).id}
+        let(:params) {{
+            contact: {
+              email: Faker::Internet.unique.email,
+              first_name: Faker::Name.first_name,
+              last_name: Faker::Name.last_name,
+              tags_attributes: [{ name: 'not_interested'},{ name: 'wonBusiness'}]
+            }
+          }}
         run_test!
       end
     end
