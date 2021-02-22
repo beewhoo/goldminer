@@ -101,6 +101,7 @@ RSpec.describe 'api/v1/contacts', type: :request do
   end
 
   path '/contacts/{id}' do
+    
     put 'Update contact' do
       tags 'Contact'
       consumes 'application/json'
@@ -144,7 +145,7 @@ RSpec.describe 'api/v1/contacts', type: :request do
         run_test!
       end
 
-      response 422, :success do
+      response 422, :unprocessable_entity do
         let(:exsiting_contact) { create(:contact) }
         let(:id) { create(:contact).id }
         let(:params) do

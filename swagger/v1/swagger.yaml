@@ -118,7 +118,7 @@ paths:
         '200':
           description: success
         '422':
-          description: success
+          description: unprocessable_entity
         '404':
           description: not_found
       requestBody:
