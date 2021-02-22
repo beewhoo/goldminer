@@ -14,11 +14,11 @@ RSpec.describe Contact, type: :model do
     it { expect { contact.validate! }.to raise_error ActiveRecord::RecordInvalid }
   end
 
-  context 'unique email constraint' do
+  context 'email already taken' do
     let(:existing_contact) { create(:contact) }
     let(:contact) { build(:contact, email: existing_contact.email) }
 
-    it { expect { contact.save }.to raise_error ActiveRecord::RecordNotUnique }
+    it { expect { contact.save! }.to raise_error ActiveRecord::RecordInvalid }
   end
 
   it 'includes users with contact with tag' do

@@ -4,6 +4,7 @@ class Api::V1::ContactsController < Api::V1::BaseController
                 .filter(filter_params)
                 .includes(:tags)
                 .paginate(pagination_params)
+                .distinct
 
     render(
       json: @contacts,
