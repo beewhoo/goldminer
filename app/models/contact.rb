@@ -4,7 +4,10 @@ class Contact < ApplicationRecord
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   # callbacks
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, uniqueness: true, length: { minimum: 4, maximum: 254 } }
+  validates :first_name, :last_name, presence: true
+  validates :email, presence: true, uniqueness: true
+
+  validates_format_of :email, { with: URI::MailTo::EMAIL_REGEXP, length: { minimum: 4, maximum: 254 } }
   before_save :find_or_create_tag
 
   accepts_nested_attributes_for :tags, allow_destroy: true
