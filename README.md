@@ -14,20 +14,20 @@
     create db `rails db:create`
     migrate db `rails db:migrate`
 
- * if you don't want to seed database
-  run rails `rails db:setup`
+ * otherwise
+  run `rails db:setup`
 
 ## Test
   run `rspec`
 
 ## API documentation
-  * generate/expose api documentation using Rswag
+  * generate api documentation using Rswag
 
   run `rails rswag:specs:swaggerize`
 
-## Run server & view api-docs
+## Run server
   run rails server `rails s`
 
-  * after running the server go here -> http://localhost:3000/api-docs for api endpoints
+  * after running the server go here -> http://localhost:3000/api-docs for api documentation
 
   * note: `post/contacts` & `put/contacts` accepts nested attributes for tags
