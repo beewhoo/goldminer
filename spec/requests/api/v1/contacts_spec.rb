@@ -84,10 +84,9 @@ RSpec.describe 'api/v1/contacts', type: :request do
       end
 
       response 422, :unprocessable_entity do
-        let(:exsiting_contact) { create(:contact)}
         let(:params) {{
             contact: {
-              email: exsiting_contact.email,
+              email: 'invalidemail',
               first_name: Faker::Name.first_name,
               last_name: Faker::Name.last_name,
               tags_attributes: [{ name: 'not_interested'},{ name: 'wonBusiness'}]
